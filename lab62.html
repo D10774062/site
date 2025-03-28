@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quadratic Equation Solver</title>
+    <style>
+        .container { margin: 20px; }
+        input { margin: 5px; }
+        #solution { border: 1px solid #ccc; padding: 10px; height: 100px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="number" id="a" placeholder="a">x² + 
+        <input type="number" id="b" placeholder="b">x + 
+        <input type="number" id="c" placeholder="c"> = 0 
+        <button onclick="solveEquation()">Solve</button>
+        <div id="solution">Solution area</div>
+    </div>
+
+    <script>
+        function solveEquation() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+            const solutionArea = document.getElementById('solution');
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                solutionArea.innerHTML = "Please enter valid numbers!";
+                return;
+            }
+
+            const discriminant = b * b - 4 * a * c;
+
+            if (a === 0) {
+                if (b === 0) {
+                    solutionArea.innerHTML = "It's not a valid quadratic equation!";
+                } else {
+                    const x = -c / b;
+                    solutionArea.innerHTML = `x = ${x}`;
+                }
+                return;
+            }
+
+            if (discriminant > 0) {
+                const sqrtD = Math.sqrt(discriminant);
+                const x1 = (-b + sqrtD) / (2 * a);
+                const x2 = (-b - sqrtD) / (2 * a);
+                solutionArea.innerHTML = `x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
+            } else if (discriminant === 0) {
+                const x = -b / (2 * a);
+                solutionArea.innerHTML = `x = ${x.toFixed(2)}`;
+            } else {
+                const realPart = -b / (2 * a);
+                const imagPart = Math.sqrt(-discriminant) / (2 * a);
+                solutionArea.innerHTML = `x1 = ${realPart.toFixed(2)}+${imagPart.toFixed(2)}i, 
+                                          x2 = ${realPart.toFixed(2)}-${imagPart.toFixed(2)}i`;
+            }
+        }
+    </script>
+</body>
+</html>
