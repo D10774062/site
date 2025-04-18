@@ -1,0 +1,43 @@
+OOP 面向对象   物件导向的   拟物的   拟人
+encapsulation   封装
+capsule
+
+OOP
+function Student(i,n,a)
+{                                          能力
+    this.id=i;                     #attr,bute特性
+    this.method=function(){}
+}
+let s = new student("D1000756");
+
+
+
+
+function Balloon(color1, diameter, speed)
+{
+    this.color = color1;
+    this.diameter = diameter;
+    this.speed = speed;
+    this.id = id;
+    this.make = function()
+    {
+        let dv = document.createElement('div');
+        dv.id = id;
+        dv.style.cssText = 'width:'+ this.diameter + 'px;height:'+ this.diameter + 'px;border - radius:'+
+ (diameter/2) + 'px;background - color:'+ this.color + ';position:absolute;left:'+ (id*50) + 'px;top:700px;';
+        dv.innerHTML = ' ' + this.id;
+        document.body.appendChild(dv);
+    }
+    this.rise = function()
+    {
+    let dv = document.getElementById('d' + this.id);
+    dv.style.animationName = "fly";
+    dv.style.animationDuration = ~~(700/this.speed) +'s';
+    }
+}
+for (let i=0; i < 100; i++)
+{
+let r = (''+(Math.random()*1000000)).replace(/\..*$/,'');
+let w = Math.random()*100 + 30)
+let b = new Balloon(i, '#' + r,200, 100);
+b.make();
