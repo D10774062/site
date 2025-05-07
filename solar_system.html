@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Simulation</title>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .sun {
+            width: 100px;
+            height: 100px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px #ffd700;
+        }
+
+        .planet {
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            cursor: pointer;
+        }
+
+        .info {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sun"></div>
+    <div id="info" class="info"></div>
+    <script>
+        const planets = [
+            { name: 'Mercury', mass: 3.3011e23, speed: 47.36, diameter: 4880, radius: 150, size: 5 },
+            { name: 'Venus', mass: 4.8675e24, speed: 35.02, diameter: 12103.6, radius: 200, size: 10 },
+            { name: 'Earth', mass: 5.97237e24, speed: 29.78, diameter: 12742, radius: 250, size: 10 },
+            { name: 'Mars', mass: 6.4171e23, speed: 24.077, diameter: 6779, radius: 300, size: 8 },
+            { name: 'Jupiter', mass: 1.8982e27, speed: 13.07, diameter: 139822, radius: 350, size: 30 },
+            { name: 'Saturn', mass: 5.6834e26, speed: 9.69, diameter: 116464, radius: 400, size: 25 },
+            { name: 'Uranus', mass: 8.681e25, speed: 6.81, diameter: 50724, radius: 450, size: 20 },
+            { name: 'Neptune', mass: 1.0241e26, speed: 5.43, diameter: 49244, radius: 500, size: 20 }
+        ];
+
+        const sun = document.querySelector('.sun');
+        const infoDiv = document.getElementById('info');
+
+        planets.forEach((planet, index) => {
+            const planetDiv = document.createElement('div');
+            planetDiv.classList.add('planet');
+            planetDiv.style.width = `${planet.size}px`;
+            planetDiv.style.height = `${planet.size}px`;
+            planetDiv.style.backgroundColor = getRandomColor();
+            planetDiv.style.animation = `orbit ${100 / planet.speed}s linear infinite`;
+            planetDiv.style.transform = `translate(-50%, -50%) translateX(${planet.radius}px)`;
+            document.body.appendChild(planetDiv);
+
+            planetDiv.addEventListener('mouseover', () => {
+                infoDiv.style.display = 'block';
+                infoDiv.style.left = `${event.pageX + 10}px`;
+                infoDiv.style.top = `${event.pageY + 10}px`;
+                infoDiv.innerHTML = `
+                    <p>Name: ${planet.name}</p>
+                    <p>Mass: ${planet.mass} kg</p>
+                    <p>Revolving Speed: ${planet.speed} km/s</p>
+                    <p>Orbit Diameter: ${planet.diameter} km</p>
+                `;
+            });
+
+            planetDiv.addEventListener('mouseout', () => {
+                infoDiv.style.display = 'none';
+            });
+        });
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+
+</html>    
